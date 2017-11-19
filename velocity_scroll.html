@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="//cdn.jsdelivr.net/velocity/1.2.2/velocity.min.js"></script>
+	<title>velocity.jsについて</title>
+</head>
+<body>
+<style>
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.box01 {
+  width: 100px;
+  height: 100px;
+  margin: 0 0 30px 0;
+  background-color: #FA8072;
+}
+
+a {
+  color: #285294;
+}
+</style>
+
+<script>
+
+var checkPoint = 'On';
+
+if( checkPoint == 'On'){
+  document.write("JavaScriptは" + checkPoint + "です.....。");
+}else{
+  document.write("JavaScriptはnoです");
+}
+</script>
+<div class="box01">COPCOP<br>about</div>
+
+<ol>
+	<li>clickと同時にフォントを消している</li>
+	<li>フォントを消すのと同時にscaleで円を拡大、queueを使うことで同時アニメーションが実現</li>
+	<li>scaleで拡大させることで中心位置を中心にして、円を拡大することが出来る</li>
+	<li>loopは元の状態に戻るのも逆再生でアニメーションされる。数字はloop回数で、trueで無制限となる</li>
+	<li></li>
+</ol>
+
+<hr>
+
+<script>
+$(function(){
+	$('.box01').click(function(){
+  //$.Velocity.mock = 10;
+	  $(".box01")
+	    .velocity(
+	      { width: '10px'},
+	      { duration: 100,
+	        //easing:'ease-out',
+	        easing:'easeInOutCubic',
+	        queue: false,
+	        delay:10 }
+	    )
+	    .velocity(
+	     { scale: 41.5},
+	     { duration: 100,
+	        delay: 200,
+	        // loop: 2
+	    });
+    });
+});
+
+
+</script>
+</body>
+</html>

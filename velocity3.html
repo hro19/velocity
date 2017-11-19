@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="//cdn.jsdelivr.net/velocity/1.2.2/velocity.min.js"></script>
+	<title>velocity.jsについて</title>
+</head>
+<body>
+<style>
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.box01 {
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  margin: 0 0 30px 0;
+  background-color: #FA8072;
+}
+
+.box02 {
+  width: 100px;
+  height: 100px;
+  margin: 0 0 30px 0;
+  background-color: #00A4DE;
+}
+
+.box02 p{
+	display: none;
+	opacity: 0;
+  font-size: 12px;
+}
+
+.box03{
+ display: none;
+  width: 100px;
+  height: 100px;
+  margin: 0 0 30px 0;
+  background-color: #CDE9BA;
+}
+
+.box03 p{
+	display: none;
+	opacity: 0;
+  font-size: 12px;
+}
+
+a {
+  color: #285294;
+}
+</style>
+
+<script>
+
+var checkPoint = 'On';
+
+if( checkPoint == 'On'){
+  document.write("JavaScriptは" + checkPoint + "です.....。");
+}else{
+  document.write("JavaScriptはnoです");
+}
+</script>
+<div class="box01">COPCOP<br>about</div>
+
+<ol>
+	<li>clickと同時にフォントを消している</li>
+	<li>フォントを消すのと同時にscaleで円を拡大、queueを使うことで同時アニメーションが実現</li>
+	<li>scaleで拡大させることで中心位置を中心にして、円を拡大することが出来る</li>
+	<li>loopは元の状態に戻るのも逆再生でアニメーションされる。数字はloop回数で、trueで無制限となる</li>
+	<li></li>
+</ol>
+
+<hr>
+<div class="box02">
+<p>このにちわこのにちわこのにちわこのにちわこのにちわこのにちわ<br>このにちわこのにちわこのにちわこのにちわ</p>
+</div>
+<ol>
+	<li>widht,heightと一つにまとめることができる</li>
+	<li>display: 'block'で非表示から表示ありに変えることが出来る</li>
+	<li></li>
+	<li></li>
+</ol>
+<hr>
+
+<a class="button3" href="javascript:void(0)">button3</a>
+<div class="box03">
+<p>このにちわこのにちわこのにちわこのにちわこのにちわこのにちわ<br>このにちわこのにちわこのにちわこのにちわ</p>
+</div>
+<ol>
+	<li>slideDownの書き方</li>
+	<li></li>
+</ol>
+<hr>
+
+<script>
+$(function(){
+	$('.box01').click(function(){
+  //$.Velocity.mock = 10;
+	  $(".box01")
+	    .velocity(
+	      { fontSize: '0px'},
+	      { duration: 100,
+	        //easing:'ease-out',
+	        easing:'easeInOutCubic',
+	        queue: false,
+	        delay:10 }
+	    )
+	    .velocity(
+	     { scale: 41.5},
+	     { duration: 100,
+	        delay: 200,
+	        // loop: 2
+	    });
+    });
+});
+
+
+$(function(){
+	$('.box02').click(function(){
+  //$.Velocity.mock = 10;
+	  $(".box02")
+	    .velocity(
+	      { width: '200px',
+	  		height: '200px'
+	  	 },
+	      { duration: 5000,
+	        easing:'easeInElastic',
+	        queue: false,
+	     })
+	  $(".box02 p")
+	    .velocity(
+	      { opacity: 1},
+	      { duration: 1000,
+	        easing:'ease-out',
+	        delay:1200,
+	        display: 'block',
+	     })
+    });
+});
+
+
+$(function(){
+	$('.button3').click(function(){
+  //$.Velocity.mock = 10;
+	  $(".box03")
+	    .velocity(
+	      "slideDown",
+	      { duration: 1000,
+	        easing:'ease-out',
+	        queue: false,
+	     })
+	  $(".box03 p")
+	    .velocity(
+	      { opacity: 1},
+	      { duration: 1000,
+	        easing:'ease-out',
+	        delay:1200,
+	        display: 'block',
+	     })
+    });
+});
+</script>
+</body>
+</html>

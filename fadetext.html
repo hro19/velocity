@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="//cdn.jsdelivr.net/velocity/1.2.2/velocity.min.js"></script>
+	<title>velocity.jsについて</title>
+</head>
+<body>
+<style>
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.box01 {
+  width: 100px;
+  height: 100px;
+  margin: 0 0 30px 0;
+  background-color: #FA8072;
+}
+
+.boxlist{
+	background-color: #ccc;
+	width: 100%;
+}
+
+.boxlist ul li{
+	opacity: 0;
+}
+
+
+
+#gnav > ul > li{
+	display: inline-block;
+	margin-top: 30px;
+} 
+
+#gnav > ul > li a{
+	padding-right: 30px;
+  	color: #285294;
+} 
+
+
+
+nav#gnav > ul > li div[id^="sub_"]{
+	display: none;
+}
+</style>
+
+<nav id="gnav">
+	<ul>
+		<li>
+			<a href="/zz/">zz</a>
+			<div id="sub_aa">
+				<ul>
+					<li><a href="">11</a></li>
+					<li><a href="">111</a></li>
+					<li><a href="">1111</a></li>
+				</ul>
+			</div>
+		</li>
+		<li class="active">
+			<a href="/yy/">yy</a>
+			<div id="sub_bb">
+				<ul>
+					<li><a href="">22</a></li>
+					<li><a href="">222</a></li>
+					<li><a href="">2222</a></li>
+				</ul>
+			</div>
+		</li>
+		<li>
+			<a href="/xx/">xx</a>
+			<div id="sub_cc">
+				<ul>
+					<li><a href="">33</a></li>
+					<li><a href="">333</a></li>
+					<li><a href="">3333</a></li>
+				</ul>
+			</div>
+		</li>
+		<li>
+			<a href="/vv/">vv</a>
+			<div id="sub_dd">
+				<ul>
+					<li><a href="">44</a></li>
+					<li><a href="">444</a></li>
+					<li><a href="">4444</a></li>
+				</ul>
+			</div>
+		</li>
+	</ul>
+</nav>
+
+<!-- サブメニューがここにきます -->
+<div class="boxlist"></div>
+
+<i>ここにサブメニューが表示されます</i>
+
+<script>
+$(function(){
+	var nowMenuId = $('nav#gnav > ul > li.active > a').next('div').attr('id');
+	$('.boxlist').html($('#' +nowMenuId).html());
+	$('.boxlist ul li').stop().animate({ opacity: "1.0"}, 400);
+});
+
+
+//mouseenterでエンターした領域のサブメニューが出てくる
+$(function(){
+	var nowMenuId = $('nav#gnav > ul > li.active > a').next('div').attr('id');
+
+	$('nav#gnav > ul > li > a').on({
+	  'mouseenter':function() {
+	  	var subMenuId = $(this).next('div').attr('id');
+	  	//alert(subMenuId);
+	  	$('.boxlist').html($('#' +subMenuId).html());
+	  	$('.boxlist ul li').stop().animate({ opacity: "1.0"}, 400);
+
+	  	$('.boxlist').addClass('parent_'+subMenuId);
+
+	  	return false;
+	  },
+	//mouseleaveで現ページに付属するサブメニューが出てくる
+	  'mouseleave':function() {
+
+	  	var activeCheck = $(this).parent('li').hasClass('active');
+	  	//alert(activeCheck);
+	  	if(activeCheck){
+	  	}else{
+		  	//alert(nowMenuId);
+	  		$('.boxlist').empty();
+			$('.boxlist').html($('#' +nowMenuId).html());
+		  	$('.boxlist ul li').stop().animate({ opacity: "1.0"}, 400);
+	  	}
+	  }
+	});
+});
+
+
+//hoverでon/off切り替え
+$(function(){
+	var nowMenuId = $('nav#gnav > ul > li.active > a').next('div').attr('id');
+
+	$('.boxlist').on({
+	  'mouseenter':function() {
+	  	//alert(144);
+	  	//$(this).children('ul').stop(true, false).fadeOut(0);
+	  	//$('.parentSign').stop(true, false).fadeIn(0);
+	  },
+	//mouseleaveで現ページに付属するサブメニューが出てくる
+	  'mouseleave':function() {
+	  	$('.boxlist').removeClass('parentSign');
+	  	$('.boxlist').html($('#' +nowMenuId).html());
+	  	$('.boxlist ul li').stop().animate({ opacity: "1.0"}, 400);	  
+	  	//alert(151);
+	  }
+	});
+});
+
+</script>
+</body>
+</html>
